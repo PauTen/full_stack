@@ -25,13 +25,20 @@
             <!--Showed when model.search exists-->
             Search results  
         </div>
-        <div ng-show = "model.search" ng-repeat = "t in model.availableToppings"> 
+
+        <div ng-show="model.showToppingAdded && !model.search" class = "alert-success" role="alert">
+            Topping added <button ng-click = "model.showToppingAdded=false">Close</button>
+        </div>
+
+        <div ng-show = "model.search" ng-repeat = "t in filteredToppings = (model.availableToppings | filter:model.search)"> 
             <span ng-click = "addTopping(t)" > {{t}} </span>
         </div>
-        <h3> Selected toppings</h3>
+        <div ng-show="model.search && (filteredToppings.length === 0)" class="alert alert-danger">No results</div> 
+        <h3 ng-show = "model.toppings.length >0"> Selected toppings</h3>
         <div ng-repeat = "t in model.toppings"> 
                 {{t}} 
         </div>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
